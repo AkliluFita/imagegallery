@@ -4,10 +4,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import http from "../httpCommon";
-import singlePic from "./../images/comp4.jpg";
-import profilePic from "./../images/p6.png";
+// import singlePic from "./../images/comp4.jpg";
+// import profilePic from "./../images/p6.png";
 import EditPict from "./EditPict";
 import moment from "moment";
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+
 
 function SinglePic() {
   const MyBox = styled(Box)(({ theme }) => ({
@@ -23,7 +25,7 @@ function SinglePic() {
 
   const MyPicBox = styled("img")(({ theme }) => ({
     width: "100%",
-    height: "450px",
+    height: "550px",
     display: "flex",
     gap: "10px",
     justifyContent: "space-between",
@@ -107,9 +109,9 @@ function SinglePic() {
       <MyPicControlBox>
         {currentUser?.username === imgPost?.username && (
           <MyBtnBox>
-            <EditPict />
+            <EditPict imgPost={imgPost} setImgPost={setImgPost}/>
             <MyDeleteBtn variant="contained" onClick={handleDelete}>
-              Delete
+              <DeleteSharpIcon/>Delete
             </MyDeleteBtn>
           </MyBtnBox>
         )}

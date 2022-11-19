@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -84,7 +85,15 @@ function Register() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" 
+      sx={{
+          marginTop: 12,
+          backgroundColor: "ButtonHighlight",
+          borderRadius: "10px",
+          padding: "20px",
+          width: "500px",
+          boxShadow: " -3px 1px 57px 0px rgba(0,0,0,0.41)",
+        }}>
         <CssBaseline />
         <Box
           sx={{
@@ -147,9 +156,9 @@ function Register() {
               sx={{ mt: 3, mb: 2 }}
               onClick={handleSubmit}
             >
-              Sign In
+              Sign Up
             </Button>
-            {err && <p style={{ color: "red" }}>{err}</p>}
+            {err && <Alert severity="error">{err}</Alert>}
             <Grid container>
               <Grid item>
                 <Link to="/Login">{"Already have an account? Sign in"}</Link>

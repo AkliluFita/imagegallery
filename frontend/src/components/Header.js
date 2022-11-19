@@ -5,7 +5,7 @@ import { items } from "../ImageData";
 
 function Header() {
   const MyBox = styled(Box)(({ theme }) => ({
-    height: "500px",
+    height: "700px",
     width: "100%",
     // backgroundColor: "#b3f6ac",
     padding: "5px",
@@ -31,16 +31,22 @@ function Item(props) {
   const MySlideTex = styled(Box)(({ theme }) => ({
     border: "1px solid #eff3f5",
   }));
+
+  const MYImage = styled("img")(({ theme }) => ({
+    height:"550px",
+    width: "100%"
+  }));
+
+  
   return (
     <Paper>
       <MySlideTex>
         <h2>{props.item.name}</h2>
         <p>{props.item.description}</p>
       </MySlideTex>
-      <img
+      <MYImage
         src={props.item.img}
         alt=""
-        style={{ width: "100%", height: "400px" }}
       />
 
       <Button className="CheckButton">Check it out!</Button>

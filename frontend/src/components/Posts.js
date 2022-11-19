@@ -15,22 +15,23 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import photo from "../images/comp3.jpg";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import photo from "../images/comp3.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import profilePic from "./../images/p6.png";
 import { Outlet, Link } from "react-router-dom";
-import { imagePosts } from "../dommyData";
+// import { imagePosts } from "../dommyData";
 import { doFilter } from "../filterMethod";
 import http from "../httpCommon";
 import moment from "moment";
 
+
 function Posts() {
   const MyBox = styled(Box)(({ theme }) => ({
     backgroundColor: "#eff3f5",
-    flex: "4", //its already flexed
+    flex: "4.5", //its already flexed
     padding: "10px",
     display: "flex",
     flexDirection: "column",
@@ -120,7 +121,8 @@ function Posts() {
 
   const MyCard = styled(Card)(({ theme }) => ({
     width: "400px",
-    // border: "1px solid #b7ced9",
+    border: "1px solid #b7ced9",
+    borderRadius:"5px",
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
       width: "100%",
@@ -165,7 +167,7 @@ function Posts() {
   const [filteredImages, setFilteredImages] = useState(imgPosts);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPostData = async () => {
       try {
         const res = await http.get(`/posts`);
         setImgPosts(res.data);
@@ -174,7 +176,7 @@ function Posts() {
         console.log(err);
       }
     };
-    fetchData();
+    fetchPostData();
   }, []);
 
   //get all posts

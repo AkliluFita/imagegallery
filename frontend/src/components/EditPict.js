@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { styled, TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, styled, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
+import http from "../httpCommon";
+import { useLocation } from "react-router-dom";
+import ModeEditSharpIcon from '@mui/icons-material/ModeEditSharp';
 
 const style = {
   position: "absolute",
@@ -23,35 +26,57 @@ const style = {
   gap: "10px",
 };
 
-function EditPict() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+function EditPict({imgPost, setImgPost}) {
 
-  const MyEditBtn = styled(Button)(({ theme }) => ({
-    // position: "fixed",
-    // bottom: "50px",
-    // right: "50px",
-  }));
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [err, setError] = useState(null);
+    // const { currentUser } = useContext(AuthContext);
+  
+    // form data states
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
+    const [disc, setDisc] = useState("");
+  
 
-  const MyFormBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    flexDirection: "column",
-    gap: "10px",
-  }));
+    const location = useLocation();
+    const ImgId = location.pathname.split("/")[2];
 
-  const MyButtonBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-  }));
+
+    const handleEdit = async (e) => {
+      e.preventDefault();
+
+      const UpdatedPost = {
+        title: title==='' ? imgPost.title: title,
+        disc: disc==='' ?  imgPost.disc: disc,
+        category:  category==="" ?  imgPost.category: category,
+        img:  imgPost.img
+      };
+
+    try {
+      await http.put(`/posts/${ImgId}`, UpdatedPost);
+  
+      window.location.reload();
+      setOpen(false);
+    } catch (err) {
+      setError(err.response.data);
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
+    }
+
+
+}
 
   return (
     <div>
-      <MyEditBtn onClick={handleOpen} variant="contained">
-        EDIT PICTURE
-      </MyEditBtn>
+      <Button
+        onClick={handleOpen}
+        variant="contained"
+      >
+        <ModeEditSharpIcon/> EDIT PICTURE
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -65,34 +90,78 @@ function EditPict() {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Edit Image Form
+              Edit Picture Form
             </Typography>
-            <MyFormBox>
-              <TextField fullWidth label="Picture Title" id="fullWidth" />
-              <TextField fullWidth label="Picture Category" id="fullWidth" />
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                flexDirection: "column",
+                gap: "10px",
+              }}
+            >
+              <TextField
+                required
+                autoFocus
+                fullWidth
+                label="Title(must filled)"
+                id="fullWidth"
+                name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <Box sx={{ minWidth: "220px" }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    category
+                  </InputLabel>
+                  <Select
+                    required
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={category}
+                    label="category"
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <MenuItem value="well-known">Well-Known</MenuItem>
+                    <MenuItem value="interview">Interview</MenuItem>
+                    <MenuItem value="events">Event</MenuItem>
+                    <MenuItem value="gallery">Gallery</MenuItem>
+                    <MenuItem value="general">General</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
               <TextField
                 fullWidth
-                label="Picture Desc"
+                label="description(optional)"
                 id="fullWidth"
                 multiline
                 maxRows={4}
+                value={disc}
+                onChange={(e) => setDisc(e.target.value)}
               />
-              <Button variant="contained" component="label">
-                Change Image
-                <input type="file" />
+            </Box>
+            {err && <p style={{ color: "red" }}>{err}</p>}
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button variant="contained" onClick={handleEdit}>
+                Edit
               </Button>
-            </MyFormBox>
-            <MyButtonBox>
-              <Button variant="contained">Edit</Button>
               <Button onClick={handleClose} variant="contained">
                 Close
               </Button>
-            </MyButtonBox>
+            </Box>
           </Box>
         </Fade>
       </Modal>
     </div>
   );
 }
+
 
 export default EditPict;

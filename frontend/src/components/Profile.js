@@ -13,9 +13,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import profilePic from "./../images/p6.png";
 import Backdrop from "@mui/material/Backdrop";
+import { AuthContext } from "../context/authContext";
 
 const style = {
   position: "absolute",
@@ -33,9 +34,7 @@ const style = {
 };
 
 function Profile() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
 
   const MyBox = styled(Box)(({ theme }) => ({
     marginTop: "100px",
@@ -118,6 +117,12 @@ function Profile() {
     justifyContent: "space-between",
   }));
 
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <MyBox>
       <MyProfileBox
@@ -127,7 +132,7 @@ function Profile() {
         <MyLeftBox>
           <Stack direction="column" spacing={2}>
             <Stack direction="row" spacing={3}>
-              <MyAvatar alt="Remy Sharp" src={profilePic} />
+              <MyAvatar alt="Remy Sharp" src={ currentUser.img} />
               <Stack direction="column">
                 <Typography variant="subtitle1" gutterBottom>
                   subtitle1.
@@ -158,7 +163,7 @@ function Profile() {
                 User Name
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                Aklilu Fita
+                {currentUser.username}
               </Typography>
             </MyListItem>
             <MyListItem>
@@ -166,7 +171,7 @@ function Profile() {
                 Email
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                weaba123abdu@gmail.com
+              {currentUser.email}
               </Typography>
             </MyListItem>
             <MyListItem>
@@ -174,7 +179,7 @@ function Profile() {
                 Password
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                weaba123
+              {currentUser.password}
               </Typography>
             </MyListItem>
             <MyEditBox>

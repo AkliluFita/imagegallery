@@ -6,6 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {
+  Alert,
   FormControl,
   InputLabel,
   MenuItem,
@@ -17,6 +18,7 @@ import { AddBox } from "@mui/icons-material";
 import http from "../httpCommon";
 import moment from "moment";
 import { AuthContext } from "../context/authContext";
+import AddCircleSharpIcon from '@mui/icons-material/AddCircleSharp';
 
 const style = {
   position: "absolute",
@@ -133,7 +135,7 @@ else{
         onClick={handleOpen}
         variant="contained"
       >
-        ADD PICTURE
+        <AddCircleSharpIcon style={{ color: '#090979', fontSize: "60px" }}/> ADD PICTURE
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -206,7 +208,7 @@ else{
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </Box>
-            {err && <p style={{ color: "red" }}>{err}</p>}
+            {err && <Alert severity="error">{err}</Alert>}
             <Box
               sx={{
                 display: "flex",

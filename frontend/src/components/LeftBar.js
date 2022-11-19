@@ -7,15 +7,16 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import React from "react";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import profilePic from "./../images/p6.png";
-import { users } from "../dommyData";
+import React, { useEffect, useState } from "react";
+// import AccountBoxIcon from "@mui/icons-material/AccountBox";
+// import profilePic from "./../images/p6.png";
+// import { users } from "../dommyData";
+import http from "../httpCommon";
 
 function LeftBar() {
   const MyBox = styled(Box)(({ theme }) => ({
     backgroundColor: "#eff3f5",
-    flex: "1", //its already flexed
+    flex: ".5", //its already flexed
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -23,14 +24,14 @@ function LeftBar() {
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
-    // border: "1px solid #b7ced9",
+    border: "1px solid #b7ced9",
     borderRadius: "10px",
     padding: "10px",
     // boxShadow: "12px 9px 5px -5px rgba(110,91,91,0.75) ",
   }));
 
   const MyUserList = styled(Box)(({ theme }) => ({
-    border: "1px solid #b7ced9",
+    // border: "1px solid #b7ced9",
     borderRadius: "10px",
     padding: "8px",
     display: "flex",
@@ -50,6 +51,22 @@ function LeftBar() {
     border: "1px solid #b7ced9",
     padding: "3px",
   }));
+
+
+  // function part
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await http.get(`/users`);
+        setUsers(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   return (
     <MyBox>

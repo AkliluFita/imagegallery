@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -12,7 +13,7 @@ import {
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import http from "../httpCommon";
+// import http from "../httpCommon";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { AuthContext } from "../context/authContext";
 
@@ -75,7 +76,15 @@ function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" 
+      sx={{
+          marginTop: 12,
+          backgroundColor: "ButtonHighlight",
+          borderRadius: "10px",
+          padding: "20px",
+          width: "500px",
+          boxShadow: " -3px 1px 57px 0px rgba(0,0,0,0.41)",
+        }}>
         <CssBaseline />
         <Box
           sx={{
@@ -129,7 +138,7 @@ function Login() {
             >
               Sign In
             </Button>
-            {err && <p style={{ color: "red" }}>{err}</p>}
+            {err && <Alert severity="error">{err}</Alert>}
             <Grid container>
               <Grid item>
                 <Link to="/Register" variant="body2">

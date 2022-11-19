@@ -61,3 +61,18 @@ export const deletePost = (req, res) => {
     return res.json("Post has been deleted!");
   });
 };
+
+
+export const updatePost = (req, res) => {
+
+    const postId = req.params.id;
+    const q =
+      "UPDATE posts SET `title`=?, `category`=? ,`disc`=?, `img`=? WHERE `id` = ?";
+
+    const values = [req.body.title, req.body.category, req.body.disc, req.body.img];
+
+    db.query(q, [...values, postId], (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.json("Post has been updated.");
+    });
+  };

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import http from "../httpCommon";
 
@@ -9,6 +8,9 @@ export const AuthContexProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("user")) || null
   );
 
+  // const [singlePost, setsinglePost] = useState(second)
+
+  // authentication
   const login = async (inputs) => {
     const res = await http.post("/auth/login", inputs);
     setCurrentUser(res.data);
@@ -22,6 +24,8 @@ export const AuthContexProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
+
+  // call single post
 
   return (
     <AuthContext.Provider value={{ currentUser, login, logout }}>

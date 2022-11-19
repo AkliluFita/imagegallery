@@ -49,7 +49,7 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
 
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
-app.use("/api/user", usersRoute);
+app.use("/api/users", usersRoute);
 
 app.listen(PORT, () => {
   console.log("connected");
