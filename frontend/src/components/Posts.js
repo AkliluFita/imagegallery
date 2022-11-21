@@ -14,7 +14,7 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 // import photo from "../images/comp3.jpg";
 import SearchIcon from "@mui/icons-material/Search";
@@ -26,7 +26,7 @@ import { Outlet, Link } from "react-router-dom";
 import { doFilter } from "../filterMethod";
 import http from "../httpCommon";
 import moment from "moment";
-
+import { AuthContext } from "../context/authContext";
 
 function Posts() {
   const MyBox = styled(Box)(({ theme }) => ({
@@ -122,11 +122,10 @@ function Posts() {
   const MyCard = styled(Card)(({ theme }) => ({
     width: "400px",
     border: "1px solid #b7ced9",
-    borderRadius:"5px",
+    borderRadius: "5px",
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
-      width: "100%",
-      border: "1px solid black",
+      padding: "0px",
     },
   }));
 
@@ -165,6 +164,7 @@ function Posts() {
   // from server
   const [imgPosts, setImgPosts] = useState([]);
   const [filteredImages, setFilteredImages] = useState(imgPosts);
+  // const { users } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -185,11 +185,6 @@ function Posts() {
     setImgCategory(event.target.value);
   };
 
-  // const handleTitleChange = (e) => {
-  //   setTitleQuery(e.target.value);
-  //   // console.log(e.target.value);
-  // };
-
   // search method(filter)
   function search(items) {
     if (titleQuery)
@@ -204,6 +199,9 @@ function Posts() {
     };
     handleFilter();
   }, [imgCategory, imgPosts]);
+
+  // remove underline style
+  const style = { textDecoration: "none" };
 
   return (
     <MyBox>
@@ -244,14 +242,13 @@ function Posts() {
       {search(filteredImages).length !== 0 ? (
         <MyPostBox>
           {search(filteredImages).map((img) => (
-            <Link to={`/posts/${img.id}`}>
+            <Link to={`/posts/${img.id}`} key={img.id} style={style}>
               <MyCard key={img.id}>
                 <MyCardHeader
                   avatar={
                     <MyAvatar
-                      sx={{ bgcolor: "red" }}
                       aria-label="recipe"
-                      src={profilePic}
+                      src={`../upload/${img?.userImg}`}
                     ></MyAvatar>
                   }
                   title={img.username}

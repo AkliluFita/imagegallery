@@ -53,12 +53,11 @@ function Register() {
   };
 
   // do time out
-  const doTimeOut = () => { 
-   return setTimeout(() => {
+  const doTimeOut = () => {
+    return setTimeout(() => {
       setError(null);
     }, 2000);
-
-   };
+  };
 
   // console.log(inputs);
 
@@ -85,15 +84,17 @@ function Register() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" 
-      sx={{
+      <Container
+        component="main"
+        sx={{
           marginTop: 12,
           backgroundColor: "ButtonHighlight",
           borderRadius: "10px",
           padding: "20px",
           width: "500px",
           boxShadow: " -3px 1px 57px 0px rgba(0,0,0,0.41)",
-        }}>
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -116,6 +117,7 @@ function Register() {
             sx={{ mt: 1 }}
           >
             <TextField
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -127,6 +129,7 @@ function Register() {
               onChange={handleChange}
             />
             <TextField
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -138,6 +141,7 @@ function Register() {
               onChange={handleChange}
             />
             <TextField
+              variant="filled"
               margin="normal"
               required
               fullWidth

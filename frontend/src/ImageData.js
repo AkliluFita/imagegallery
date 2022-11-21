@@ -1,7 +1,7 @@
-import pict1 from "./images/comp2.jpeg";
-import pict2 from "./images/comp3.jpg";
-import pict3 from "./images/comp4.jpg";
-import pict4 from "./images/picture.jpg";
+import pict1 from "./images/nature.jpg";
+import pict2 from "./images/stock.jpg";
+import pict3 from "./images/love1.jpg";
+import pict4 from "./images/tree.jpg";
 import pict5 from "./images/pic.jpg";
 import pict6 from "./images/comp3.jpg";
 

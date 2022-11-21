@@ -8,8 +8,7 @@ import http from "../httpCommon";
 // import profilePic from "./../images/p6.png";
 import EditPict from "./EditPict";
 import moment from "moment";
-import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
-
+import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 
 function SinglePic() {
   const MyBox = styled(Box)(({ theme }) => ({
@@ -109,9 +108,10 @@ function SinglePic() {
       <MyPicControlBox>
         {currentUser?.username === imgPost?.username && (
           <MyBtnBox>
-            <EditPict imgPost={imgPost} setImgPost={setImgPost}/>
+            <EditPict imgPost={imgPost} setImgPost={setImgPost} />
             <MyDeleteBtn variant="contained" onClick={handleDelete}>
-              <DeleteSharpIcon/>Delete
+              <DeleteSharpIcon />
+              Delete
             </MyDeleteBtn>
           </MyBtnBox>
         )}
@@ -129,7 +129,7 @@ function SinglePic() {
         </MyTextBox>
 
         <MyAvatarBox>
-          <Avatar alt="avatar" src={imgPost.userImg} />
+          <Avatar alt="avatar" src={`../upload/${imgPost?.userImg}`} />
 
           <MyAvatarTextBox>
             <Typography variant="subtitle1" gutterBottom>

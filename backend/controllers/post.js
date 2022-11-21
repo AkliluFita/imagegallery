@@ -3,7 +3,7 @@ import { db } from "../db.js";
 // get all posts
 export const getPosts = (req, res) => {
   const q =
-    "SELECT u.username, p.id, p.title, p.category, p.disc, p.img, p.date FROM users u JOIN posts p ON u.id = p.uid ORDER BY p.date DESC";
+    "SELECT u.username, u.img AS userImg, p.id, p.title, p.category, p.disc, p.img, p.date FROM users u JOIN posts p ON u.id = p.uid ORDER BY p.date DESC";
 
   db.query(q, [req.query.cat], (err, data) => {
     if (err) return res.status(500).send(err);
@@ -62,17 +62,20 @@ export const deletePost = (req, res) => {
   });
 };
 
-
 export const updatePost = (req, res) => {
+  const postId = req.params.id;
+  const q =
+    "UPDATE posts SET `title`=?, `category`=? ,`disc`=?, `img`=? WHERE `id` = ?";
 
-    const postId = req.params.id;
-    const q =
-      "UPDATE posts SET `title`=?, `category`=? ,`disc`=?, `img`=? WHERE `id` = ?";
+  const values = [
+    req.body.title,
+    req.body.category,
+    req.body.disc,
+    req.body.img,
+  ];
 
-    const values = [req.body.title, req.body.category, req.body.disc, req.body.img];
-
-    db.query(q, [...values, postId], (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.json("Post has been updated.");
-    });
-  };
+  db.query(q, [...values, postId], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.json("Post has been updated.");
+  });
+};

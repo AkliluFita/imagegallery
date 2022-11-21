@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { itemData } from "../ImageData";
 
-function RightBar({ rightBarStyle }) {
+function RightBar({ style }) {
   const MyBox = styled(Box)(({ theme }) => ({
     backgroundColor: "#eff3f5",
     flex: "1", //its already flexed
@@ -58,7 +58,7 @@ function RightBar({ rightBarStyle }) {
   return (
     <MyBox>
       {/* <MyBoxWrap sx={rightBarStyle}> */}
-      <MyImageBox>
+      <MyImageBox sx={style}>
         <Typography variant="h5">recent Post images</Typography>
         <ImageList variant="masonry" cols={3} gap={8}>
           {itemData.map((item) => (

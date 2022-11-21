@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import { Routes, Route } from "react-router-dom";
 import ProfilePg from "./pages/ProfilePg";
 import SinglePicPg from "./pages/SinglePicPg";
+import DashboardPg from "./pages/DashboardPg";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Gallery" element={<GalleryPg />} />
-          <Route path="/Profile" element={<ProfilePg />} />
+          <Route path="/users/:id" element={<ProfilePg />} />
           <Route path="/posts/:id" element={<SinglePicPg />} />
+          <Route path="/dashboard" element={<DashboardPg />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
         </Routes>

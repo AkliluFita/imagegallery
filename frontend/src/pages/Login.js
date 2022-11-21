@@ -76,15 +76,17 @@ function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" 
-      sx={{
+      <Container
+        component="main"
+        sx={{
           marginTop: 12,
           backgroundColor: "ButtonHighlight",
           borderRadius: "10px",
           padding: "20px",
           width: "500px",
           boxShadow: " -3px 1px 57px 0px rgba(0,0,0,0.41)",
-        }}>
+        }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -107,6 +109,7 @@ function Login() {
             sx={{ mt: 1 }}
           >
             <TextField
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -118,6 +121,7 @@ function Login() {
               onChange={handleChange}
             />
             <TextField
+              variant="filled"
               margin="normal"
               required
               fullWidth

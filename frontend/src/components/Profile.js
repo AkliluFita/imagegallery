@@ -1,41 +1,12 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  buttonBaseClasses,
-  Fade,
-  List,
-  ListItem,
-  ListItemText,
-  Modal,
-  Stack,
-  styled,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Stack, styled, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import profilePic from "./../images/p6.png";
-import Backdrop from "@mui/material/Backdrop";
 import { AuthContext } from "../context/authContext";
+// import profilePic from "./../images/p6.png";
+// import Backdrop from "@mui/material/Backdrop";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "white",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-};
+import EditUser from "./EditUser";
 
 function Profile() {
-
-
   const MyBox = styled(Box)(({ theme }) => ({
     marginTop: "100px",
     border: "1px solid #b7ced9",
@@ -96,32 +67,7 @@ function Profile() {
     padding: "10px",
   }));
 
-  const MyEditBox = styled(Box)(({ theme }) => ({
-    // width: "50%",
-  }));
-
-  const MyButton = styled(Button)(({ theme }) => ({
-    width: "50%",
-  }));
-
-  const MyFormBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    flexDirection: "column",
-    gap: "10px",
-  }));
-
-  const MyButtonBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-  }));
-
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const { currentUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <MyBox>
@@ -132,15 +78,11 @@ function Profile() {
         <MyLeftBox>
           <Stack direction="column" spacing={2}>
             <Stack direction="row" spacing={3}>
-              <MyAvatar alt="Remy Sharp" src={ currentUser.img} />
+              <MyAvatar alt="Remy Sharp" src={`../upload/${user?.img}`} />
               <Stack direction="column">
                 <Typography variant="subtitle1" gutterBottom>
                   subtitle1.
                 </Typography>
-                <Button variant="contained" component="label">
-                  Change Profile Picture
-                  <input type="file" />
-                </Button>
               </Stack>
             </Stack>
 
@@ -163,7 +105,7 @@ function Profile() {
                 User Name
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                {currentUser.username}
+                {user.username}
               </Typography>
             </MyListItem>
             <MyListItem>
@@ -171,7 +113,7 @@ function Profile() {
                 Email
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-              {currentUser.email}
+                {user.email}
               </Typography>
             </MyListItem>
             <MyListItem>
@@ -179,49 +121,10 @@ function Profile() {
                 Password
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-              {currentUser.password}
+                {user.password}
               </Typography>
             </MyListItem>
-            <MyEditBox>
-              <MyButton variant="contained" onClick={handleOpen}>
-                Edit Your account
-              </MyButton>
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={open}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <Box sx={style}>
-                    <Typography
-                      id="transition-modal-title"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Edit Account Form
-                    </Typography>
-                    <MyFormBox>
-                      <TextField fullWidth label="User Name" id="fullWidth" />
-                      <TextField fullWidth label="Email" id="fullWidth" />
-                      <TextField fullWidth label="Password" id="fullWidth" />
-                      <Button variant="contained" component="label">
-                        Finish Edit
-                      </Button>
-                    </MyFormBox>
-                    <MyButtonBox>
-                      <Button onClick={handleClose} variant="contained">
-                        Close
-                      </Button>
-                    </MyButtonBox>
-                  </Box>
-                </Fade>
-              </Modal>
-            </MyEditBox>
+            <EditUser /> {/* came from new component*/}
           </MyListBox>
         </MyRightBox>
       </MyProfileBox>

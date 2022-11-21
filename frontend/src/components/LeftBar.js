@@ -7,11 +7,11 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 // import AccountBoxIcon from "@mui/icons-material/AccountBox";
 // import profilePic from "./../images/p6.png";
 // import { users } from "../dommyData";
-import http from "../httpCommon";
 
 function LeftBar() {
   const MyBox = styled(Box)(({ theme }) => ({
@@ -52,21 +52,7 @@ function LeftBar() {
     padding: "3px",
   }));
 
-
-  // function part
-  const [users, setUsers] = useState([])
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const res = await http.get(`/users`);
-        setUsers(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchUserData();
-  }, []);
+  const { users } = useContext(AuthContext);
 
   return (
     <MyBox>
@@ -76,7 +62,7 @@ function LeftBar() {
         {users.map((user) => (
           <MyListItemButton key={user.id}>
             <ListItemIcon>
-              <MyAvatar alt="profile" src={user.imgUrl} />
+              <MyAvatar src={`../upload/${user?.img}`} aria-label="recipe" />
             </ListItemIcon>
             <ListItemText primary={user.username} />
           </MyListItemButton>

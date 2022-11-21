@@ -1,6 +1,10 @@
-export { default as Home } from "./Home";
-export { default as GalleryPg } from "./GalleryPg";
-export { default as ProfilePg } from "./ProfilePg";
-export { default as SinglePicPg } from "./SinglePicPg";
-export { default as Login } from "./Login";
-export { default as Register } from "./Register";
+export { default as AddPic } from "./AddPic";
+export { default as EditPict } from "./EditPict";
+export { default as Footer } from "./Footer";
+export { default as Header } from "./Header";
+export { default as Gallery } from "./Gallery";
+export { default as LeftBar } from "./LeftBar";
+export { default as Posts } from "./Posts";
+export { default as Profile } from "./Profile";
+export { default as RightBar } from "./Profile";
+export { default as Navbar } from "./Navbar";

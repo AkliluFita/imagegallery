@@ -11,14 +11,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  styled,
   TextField,
 } from "@mui/material";
-import { AddBox } from "@mui/icons-material";
 import http from "../httpCommon";
 import moment from "moment";
 import { AuthContext } from "../context/authContext";
-import AddCircleSharpIcon from '@mui/icons-material/AddCircleSharp';
+import AddCircleSharpIcon from "@mui/icons-material/AddCircleSharp";
 
 const style = {
   position: "absolute",
@@ -36,29 +34,6 @@ const style = {
 };
 
 function AddPic() {
-  const MyAddBtn = styled(Button)(({ theme }) => ({
-    position: "fixed",
-    bottom: "50px",
-    right: "50px",
-  }));
-
-  const MyFormBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    flexDirection: "column",
-    gap: "10px",
-  }));
-
-  const MySelectBox = styled(Box)(({ theme }) => ({
-    minWidth: "220px",
-  }));
-
-  const MyButtonBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-  }));
-
   // functions parts
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -95,27 +70,24 @@ function AddPic() {
       date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
     };
 
-   if(title === "" || category ==="" || file === null ){
-    setError("the title, category and image should be filled");
-    setTimeout(() => {
-      setError(null);
-    }, 2000);
-   }
-else{
-  try {
-    await http.post(`/posts`, newPost);
+    if (title === "" || category === "" || file === null) {
+      setError("the title, category and image should be filled");
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
+    } else {
+      try {
+        await http.post(`/posts`, newPost);
 
-    window.location.reload();
-    setOpen(false);
-  } catch (err) {
-    setError(err.response.data);
-    setTimeout(() => {
-      setError(null);
-    }, 2000);
-  }
-}
-   
-
+        window.location.reload();
+        setOpen(false);
+      } catch (err) {
+        setError(err.response.data);
+        setTimeout(() => {
+          setError(null);
+        }, 2000);
+      }
+    }
   };
 
   console.log(title);
@@ -135,7 +107,8 @@ else{
         onClick={handleOpen}
         variant="contained"
       >
-        <AddCircleSharpIcon style={{ color: '#090979', fontSize: "60px" }}/> ADD PICTURE
+        <AddCircleSharpIcon style={{ color: "#090979", fontSize: "60px" }} />{" "}
+        ADD PICTURE
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -161,6 +134,7 @@ else{
               }}
             >
               <TextField
+                variant="filled"
                 required
                 autoFocus
                 fullWidth
@@ -176,6 +150,7 @@ else{
                     category(must filled)
                   </InputLabel>
                   <Select
+                    variant="filled"
                     required
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -192,6 +167,8 @@ else{
                 </FormControl>
               </Box>
               <TextField
+                type="area"
+                variant="filled"
                 fullWidth
                 label="description(optional)"
                 id="fullWidth"
@@ -202,6 +179,7 @@ else{
               />
               Upload Image(must filled)
               <TextField
+                variant="filled"
                 required
                 fullWidth
                 type="file"

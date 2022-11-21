@@ -4,18 +4,14 @@ import {
   Avatar,
   Box,
   Button,
-  IconButton,
-  InputBase,
   Menu,
-  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 // import { MenuIcon } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
 import logo from "./../images/reporterR.png";
-import profilePic from "./../images/p6.png";
+// import profilePic from "./../images/p6.png";
 import { Outlet, Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
@@ -97,7 +93,7 @@ function Navbar() {
   }));
 
   // function part
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser, logout, user } = useContext(AuthContext);
 
   const handleLogOut = () => {
     logout();
@@ -114,14 +110,14 @@ function Navbar() {
               <MyButton>HOME</MyButton>
             </Link>
 
-            <MyButton>EVENT</MyButton>
+            {/* <MyButton>EVENT</MyButton>
             <MyButton>INTERVIEW</MyButton>
-            <MyButton> GENERAL</MyButton>
+            <MyButton> GENERAL</MyButton> */}
             <Link to="/Gallery">
               <MyButton> GALLERY</MyButton>
             </Link>
 
-            <MyButton>WELL_KNOWN</MyButton>
+            {/* <MyButton>WELL_KNOWN</MyButton> */}
           </MyMenu>
 
           <MyAccount>
@@ -136,12 +132,20 @@ function Navbar() {
                 <MyButton>REGISTER</MyButton>
               </Link>
             )}
+
+            {currentUser && (
+              <Link to={`/users/${currentUser?.id}`}>
+                <MyButton>PROFILE</MyButton>
+              </Link>
+            )}
+
+            {currentUser && <MyButton onClick={handleLogOut}>Logout</MyButton>}
           </MyAccount>
 
           <Box sx={{ contentItem: "center" }}>
             <MyAvatar
               alt="avatar"
-              src={profilePic}
+              src={currentUser ? `../upload/${user?.img}` : ""}
               onClick={(e) => setOpenMenuBar(true)}
               id="demo-positioned-menu"
               aria-controls={openMenuBar ? "demo-positioned-menu" : undefined}
@@ -154,33 +158,6 @@ function Navbar() {
           </Box>
         </MyToolbar>
       </AppBar>
-
-      <MyMenubar
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        open={openMenuBar}
-        onClose={(e) => setOpenMenuBar(false)}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        <MenuItem>
-          <Link to="/Profile">
-            <MyButton>Profile</MyButton>
-          </Link>
-        </MenuItem>
-        <MenuItem>My account</MenuItem>
-        {currentUser ? (
-          <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-        ) : (
-          <MenuItem disabled>Logout</MenuItem>
-        )}
-      </MyMenubar>
     </MyNav>
   );
 }

@@ -5,15 +5,12 @@ import LeftBar from "../components/LeftBar";
 import Posts from "../components/Posts";
 import RightBar from "../components/RightBar";
 import Footer from "../components/Footer";
-import {  Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import AddPic from "../components/AddPic";
 import { AuthContext } from "../context/authContext";
 
-
-
 function Home() {
-
   const { currentUser } = useContext(AuthContext);
   return (
     <Box>
@@ -25,7 +22,7 @@ function Home() {
         <RightBar />
       </Stack>
       <Footer />
-     { currentUser && <AddPic />}
+      {currentUser && <AddPic />}
     </Box>
   );
 }

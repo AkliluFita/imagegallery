@@ -10,8 +10,9 @@ function SinglePicPg() {
     // border: "1px solid black",
   }));
 
-
   const [imgPost, setImgPost] = useState({});
+
+  const style = { marginTop: "100px" };
 
   return (
     <MyBox>
@@ -19,7 +20,7 @@ function SinglePicPg() {
 
       <Stack direction="row" spacing={1} justifyContent="space-between">
         <SinglePic imgPost={imgPost} setImgPost={setImgPost} />
-        <RightBar />
+        <RightBar style={style} />
       </Stack>
       {/* <Footer /> */}
     </MyBox>
