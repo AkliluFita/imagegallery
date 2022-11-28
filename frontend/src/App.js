@@ -10,15 +10,21 @@ import { Routes, Route } from "react-router-dom";
 import ProfilePg from "./pages/ProfilePg";
 import SinglePicPg from "./pages/SinglePicPg";
 import DashboardPg from "./pages/DashboardPg";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
   return (
     <ThemeProvider theme={theme}>
       <Box>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Gallery" element={<GalleryPg />} />
-          <Route path="/users/:id" element={<ProfilePg />} />
+          <Route
+            path="/users/:id"
+            element={currentUser ? <ProfilePg /> : <Home />}
+          />
           <Route path="/posts/:id" element={<SinglePicPg />} />
           <Route path="/dashboard" element={<DashboardPg />} />
           <Route path="/Login" element={<Login />} />

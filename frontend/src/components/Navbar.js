@@ -66,9 +66,10 @@ function Navbar() {
   }));
 
   const MyButton = styled(Button)(({ theme }) => ({
-    border: "1px solid #b7ced9",
+    // border: "1px solid #b7ced9",
     color: "#2a342d",
     padding: "10px",
+    textDecoration: "none",
 
     "&:hover": {
       borderBottom: "1px solid black",
@@ -94,6 +95,9 @@ function Navbar() {
 
   // function part
   const { currentUser, logout, user } = useContext(AuthContext);
+  const style = {
+    textDecoration: "none",
+  };
 
   const handleLogOut = () => {
     logout();
@@ -106,14 +110,14 @@ function Navbar() {
           <MyLogo src={logo} alt="logo" />
 
           <MyMenu>
-            <Link to="/">
+            <Link to="/" style={style}>
               <MyButton>HOME</MyButton>
             </Link>
 
             {/* <MyButton>EVENT</MyButton>
             <MyButton>INTERVIEW</MyButton>
             <MyButton> GENERAL</MyButton> */}
-            <Link to="/Gallery">
+            <Link to="/Gallery" style={style}>
               <MyButton> GALLERY</MyButton>
             </Link>
 
@@ -122,19 +126,19 @@ function Navbar() {
 
           <MyAccount>
             {!currentUser && (
-              <Link to="/Login">
+              <Link to="/Login" style={style}>
                 <MyButton>LOGIN</MyButton>
               </Link>
             )}
 
             {!currentUser && (
-              <Link to="/Register">
+              <Link to="/Register" style={style}>
                 <MyButton>REGISTER</MyButton>
               </Link>
             )}
 
             {currentUser && (
-              <Link to={`/users/${currentUser?.id}`}>
+              <Link to={`/users/${currentUser?.id}`} style={style}>
                 <MyButton>PROFILE</MyButton>
               </Link>
             )}

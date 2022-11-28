@@ -44,7 +44,7 @@ function Posts() {
   }));
 
   const MyFormBox = styled(Stack)(({ theme }) => ({
-    border: "1px solid #b7ced9",
+    // border: "1px solid #b7ced9",
     borderRadius: "10px",
     width: "80%",
     display: "flex",
@@ -127,6 +127,17 @@ function Posts() {
       flexDirection: "column",
       padding: "0px",
     },
+    position: "relative",
+  }));
+
+  const MyUpperCardBox = styled(Box)(({ theme }) => ({
+    // display: "none",
+    color: "ButtonText",
+    background: "white",
+    width: "100%",
+    opacity: 0.8,
+    position: "absolute",
+    transform: "translateY(0%)",
   }));
 
   const MyCardHeader = styled(CardHeader)(({ theme }) => ({
@@ -143,11 +154,22 @@ function Posts() {
 
   const MyCardMedia = styled(CardMedia)(({ theme }) => ({
     border: "1px solid #b7ced9",
-    height: "200px",
+    height: "300px",
   }));
 
-  const MyCardContent = styled(CardContent)(({ theme }) => ({
-    backgroundColor: "1px solid #b7ced9",
+  const MyCardContentBox = styled(Box)(({ theme }) => ({
+    // display: "none",
+    // color: "ButtonText",
+    background: "white",
+    width: "100%",
+    opacity: 0,
+    position: "absolute",
+    bottom: 0,
+    transition: 0.5,
+    "&:hover": {
+      opacity: 0.7,
+      transition: 0.5,
+    },
   }));
 
   const MyNoFoundText = styled(Typography)(({ theme }) => ({
@@ -244,33 +266,37 @@ function Posts() {
           {search(filteredImages).map((img) => (
             <Link to={`/posts/${img.id}`} key={img.id} style={style}>
               <MyCard key={img.id}>
-                <MyCardHeader
-                  avatar={
-                    <MyAvatar
-                      aria-label="recipe"
-                      src={`../upload/${img?.userImg}`}
-                    ></MyAvatar>
-                  }
-                  title={img.username}
-                  subheader={moment(img.date).fromNow()}
-                />
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Title</strong>: {img.title}
-                </Typography>
+                <MyUpperCardBox>
+                  <MyCardHeader
+                    avatar={
+                      <MyAvatar
+                        aria-label="recipe"
+                        src={`../upload/${img?.userImg}`}
+                      ></MyAvatar>
+                    }
+                    title={img.username}
+                    subheader={moment(img.date).fromNow()}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    <strong>Title</strong>: {img.title}
+                  </Typography>
+                </MyUpperCardBox>
                 <MyCardMedia
                   component="img"
-                  height="90"
+                  height="100"
                   image={`../upload/${img?.img}`}
                   alt="Paella dish"
                 />
-                <MyCardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    <strong>Category</strong>: {img.category}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <strong>Disc</strong>: {img.disc}
-                  </Typography>
-                </MyCardContent>
+                <MyCardContentBox>
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>Category</strong>: {img.category}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>Disc</strong>: {img.disc}
+                    </Typography>
+                  </CardContent>
+                </MyCardContentBox>
               </MyCard>
             </Link>
           ))}
