@@ -24,10 +24,11 @@ function SinglePic() {
 
   const MyPicBox = styled("img")(({ theme }) => ({
     width: "100%",
-    height: "550px",
+    height: "80%",
     display: "flex",
     gap: "10px",
     justifyContent: "space-between",
+    objectFit: "cover",
   }));
   const MyPicControlBox = styled(Box)(({ theme }) => ({
     display: "flex",

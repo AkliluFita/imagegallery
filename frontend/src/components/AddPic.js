@@ -163,6 +163,10 @@ function AddPic() {
                     <MenuItem value="events">Event</MenuItem>
                     <MenuItem value="gallery">Gallery</MenuItem>
                     <MenuItem value="general">General</MenuItem>
+                    <MenuItem value="politics">Politics</MenuItem>
+                    <MenuItem value="sport">Sport</MenuItem>
+                    <MenuItem value="social">Social</MenuItem>
+                    <MenuItem value="parliament">Parliament</MenuItem>
                   </Select>
                 </FormControl>
               </Box>

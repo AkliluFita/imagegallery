@@ -15,6 +15,18 @@ export const doFilter = (imgCat, setFilter, imgPosts) => {
     case "well-known":
       setFilter(imgPosts.filter((item) => item.category === "well-known"));
       break;
+    case "politics":
+      setFilter(imgPosts.filter((item) => item.category === "politics"));
+      break;
+    case "sport":
+      setFilter(imgPosts.filter((item) => item.category === "sport"));
+      break;
+    case "social":
+      setFilter(imgPosts.filter((item) => item.category === "social"));
+      break;
+    case "parliament":
+      setFilter(imgPosts.filter((item) => item.category === "parliament"));
+      break;
     default:
       setFilter(imgPosts);
       break;

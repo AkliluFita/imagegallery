@@ -5,11 +5,18 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { FormControl, InputLabel, MenuItem, Select, styled, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+  TextField,
+} from "@mui/material";
 import { AddBox } from "@mui/icons-material";
 import http from "../httpCommon";
 import { useLocation } from "react-router-dom";
-import ModeEditSharpIcon from '@mui/icons-material/ModeEditSharp';
+import ModeEditSharpIcon from "@mui/icons-material/ModeEditSharp";
 
 const style = {
   position: "absolute",
@@ -26,37 +33,34 @@ const style = {
   gap: "10px",
 };
 
-function EditPict({imgPost, setImgPost}) {
+function EditPict({ imgPost, setImgPost }) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [err, setError] = useState(null);
+  // const { currentUser } = useContext(AuthContext);
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [err, setError] = useState(null);
-    // const { currentUser } = useContext(AuthContext);
-  
-    // form data states
-    const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
-    const [disc, setDisc] = useState("");
-  
+  // form data states
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [disc, setDisc] = useState("");
 
-    const location = useLocation();
-    const ImgId = location.pathname.split("/")[2];
+  const location = useLocation();
+  const ImgId = location.pathname.split("/")[2];
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
 
-    const handleEdit = async (e) => {
-      e.preventDefault();
-
-      const UpdatedPost = {
-        title: title==='' ? imgPost.title: title,
-        disc: disc==='' ?  imgPost.disc: disc,
-        category:  category==="" ?  imgPost.category: category,
-        img:  imgPost.img
-      };
+    const UpdatedPost = {
+      title: title === "" ? imgPost.title : title,
+      disc: disc === "" ? imgPost.disc : disc,
+      category: category === "" ? imgPost.category : category,
+      img: imgPost.img,
+    };
 
     try {
       await http.put(`/posts/${ImgId}`, UpdatedPost);
-  
+
       window.location.reload();
       setOpen(false);
     } catch (err) {
@@ -65,17 +69,12 @@ function EditPict({imgPost, setImgPost}) {
         setError(null);
       }, 2000);
     }
-
-
-}
+  };
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-      >
-        <ModeEditSharpIcon/> EDIT PICTURE
+      <Button onClick={handleOpen} variant="contained">
+        <ModeEditSharpIcon /> EDIT PICTURE
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -128,6 +127,10 @@ function EditPict({imgPost, setImgPost}) {
                     <MenuItem value="events">Event</MenuItem>
                     <MenuItem value="gallery">Gallery</MenuItem>
                     <MenuItem value="general">General</MenuItem>
+                    <MenuItem value="politics">Politics</MenuItem>
+                    <MenuItem value="sport">Sport</MenuItem>
+                    <MenuItem value="social">Social</MenuItem>
+                    <MenuItem value="parliament">Parliament</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -162,6 +165,5 @@ function EditPict({imgPost, setImgPost}) {
     </div>
   );
 }
-
 
 export default EditPict;
